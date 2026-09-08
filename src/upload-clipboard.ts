@@ -1,18 +1,10 @@
-import { execFile } from "child_process";
-import { randomBytes } from "crypto";
-import { access, unlink } from "fs/promises";
-import { tmpdir } from "os";
-import { join } from "path";
-import { promisify } from "util";
 import { Clipboard, showHUD, showToast, Toast } from "@raycast/api";
+import { resolveClipboardImage } from "./lib/clipboard-image";
 import { formatOutput, labelFor } from "./lib/format";
 import { loadPreferences, createR2Client } from "./lib/r2";
 import { uploadFile } from "./lib/upload";
 
-const execFileAsync = promisify(execFile);
-
-export default async function CaptureAndUpload() {
-  // Fail fast on missing preferences before opening the screenshot crosshair.
+export default async function UploadClipboard() {
   let preferences;
   try {
     preferences = loadPreferences();
@@ -25,19 +17,22 @@ export default async function CaptureAndUpload() {
     return;
   }
 
-  const tmpPath = join(tmpdir(), `r2-upload-${randomBytes(4).toString("hex")}.png`);
-  // -i: interactive region/window selection, matching the native macOS shortcut.
-  await execFileAsync("/usr/sbin/screencapture", ["-i", tmpPath]);
-
-  const captured = await access(tmpPath)
-    .then(() => true)
-    .catch(() => false);
-  if (!captured) return; // User pressed Escape; nothing to do.
+  const image = await resolveClipboardImage();
+  if (!image) {
+    await showToast({
+      style: Toast.Style.Failure,
+      title: "No Image on Clipboard",
+      message: "Copy an image or a screenshot first.",
+    });
+    return;
+  }
 
   await showToast({ style: Toast.Style.Animated, title: "Uploading…" });
   try {
     const client = createR2Client(preferences);
-    const result = await uploadFile(client, preferences, tmpPath);
+    const result = await uploadFile(client, preferences, image.path);
+    // This overwrites the image that was just uploaded with its link —
+    // that's the point: copy an image, run this, paste the link.
     const text = formatOutput(preferences.defaultFormat, result.url, result.filename);
     await Clipboard.copy(text);
     await showHUD(`Copied ${labelFor(preferences.defaultFormat)} link`);
@@ -48,6 +43,6 @@ export default async function CaptureAndUpload() {
       message: error instanceof Error ? error.message : String(error),
     });
   } finally {
-    await unlink(tmpPath).catch(() => undefined);
+    await image.cleanup();
   }
 }

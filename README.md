@@ -12,6 +12,10 @@ Cloudflare R2 bucket and copies the link back to your clipboard.
   (`screencapture -i`), uploads the result to R2, and copies the link.
   Bind it to a hotkey (e.g. `⌥⇧4`) for a screenshot → clipboard-link flow
   with no browser in between.
+- **Upload Clipboard Image** — uploads whatever image is currently on
+  your clipboard (a screenshot you copied, an image copied from a
+  browser/app, or a file copied in Finder) and replaces it with the link.
+  Copy an image, run this, paste the link.
 - **Upload Image** — a form to pick one or more local image files, choose
   the output format, and optionally name the upload.
 - **Upload Finder Selection** — uploads whatever image files are currently
@@ -46,6 +50,6 @@ npm run dev
 ```
 
 `npm run dev` (`ray develop`) builds the extension and registers it with
-your local Raycast app in dev mode — the three commands show up
-immediately and hot-reload on further changes. Stop it with Ctrl+C; the
-extension stays installed until Raycast is told otherwise.
+your local Raycast app in dev mode — the commands show up immediately and
+hot-reload on further changes. Stop it with Ctrl+C; the extension stays
+installed until Raycast is told otherwise.

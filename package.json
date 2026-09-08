@@ -34,6 +34,12 @@
       "mode": "no-view"
     },
     {
+      "name": "upload-clipboard",
+      "title": "Upload Clipboard Image",
+      "description": "Upload the image currently on your clipboard to R2 and copy the link",
+      "mode": "no-view"
+    },
+    {
       "name": "upload-image",
       "title": "Upload Image",
       "description": "Pick one or more local images to upload to R2",

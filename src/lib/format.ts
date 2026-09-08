@@ -13,3 +13,15 @@ export function formatOutput(format: OutputFormat, url: string, filename: string
       return url;
   }
 }
+
+export function labelFor(format: string): string {
+  switch (format) {
+    case "markdown":
+    case "markdown-filename":
+      return "Markdown";
+    case "html":
+      return "HTML";
+    default:
+      return "URL";
+  }
+}
