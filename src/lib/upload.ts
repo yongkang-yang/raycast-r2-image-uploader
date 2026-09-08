@@ -1,0 +1,31 @@
+import { readFile } from "fs/promises";
+import { basename } from "path";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { buildKey, contentTypeForExtension } from "./filename";
+import { publicUrlFor, type Preferences } from "./r2";
+
+export type UploadResult = { key: string; url: string; filename: string };
+
+// Uploads one local file to R2 and returns its public URL. `slug` becomes
+// part of the object key when provided; otherwise the original filename is
+// slugified.
+export async function uploadFile(
+  client: S3Client,
+  preferences: Preferences,
+  filePath: string,
+  slug?: string,
+): Promise<UploadResult> {
+  const filename = basename(filePath);
+  const body = await readFile(filePath);
+  const key = buildKey(filename, slug);
+  const extension = key.match(/\.([a-zA-Z0-9]+)$/)?.[1] ?? "png";
+  await client.send(
+    new PutObjectCommand({
+      Bucket: preferences.bucket.trim(),
+      Key: key,
+      Body: body,
+      ContentType: contentTypeForExtension(extension),
+    }),
+  );
+  return { key, url: publicUrlFor(preferences, key), filename };
+}

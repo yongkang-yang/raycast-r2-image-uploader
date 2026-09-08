@@ -1,0 +1,106 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "author": "johan_yang",
+  "categories": [
+    "Productivity",
+    "Media"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.700.0",
+    "@raycast/api": "^1.104.20",
+    "@raycast/utils": "^2.2.7"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.2.0",
+    "@types/node": "22.19.17",
+    "@types/react": "19.0.10",
+    "eslint": "^10.5.0",
+    "prettier": "^3.8.5",
+    "typescript": "^6.0.3"
+  },
+  "name": "r2-image-uploader",
+  "title": "R2 Image Uploader",
+  "description": "Capture screenshots or upload images straight to your Cloudflare R2 bucket and get a link back in your clipboard.",
+  "icon": "extension-icon.png",
+  "platforms": [
+    "macOS"
+  ],
+  "commands": [
+    {
+      "name": "capture-and-upload",
+      "title": "Capture & Upload",
+      "description": "Screenshot a region, upload it to R2, and copy the link",
+      "mode": "no-view"
+    },
+    {
+      "name": "upload-image",
+      "title": "Upload Image",
+      "description": "Pick one or more local images to upload to R2",
+      "mode": "view"
+    },
+    {
+      "name": "upload-finder-selection",
+      "title": "Upload Finder Selection",
+      "description": "Upload the images currently selected in Finder",
+      "mode": "no-view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "accountId",
+      "title": "R2 Account ID",
+      "description": "Cloudflare account ID that owns the R2 bucket.",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "bucket",
+      "title": "R2 Bucket",
+      "description": "Name of the R2 bucket to upload into.",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "accessKeyId",
+      "title": "R2 Access Key ID",
+      "description": "S3 API token access key ID with write access to the bucket.",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "secretAccessKey",
+      "title": "R2 Secret Access Key",
+      "description": "S3 API token secret. Stored locally by Raycast, never leaves your machine except to talk to Cloudflare.",
+      "type": "password",
+      "required": true
+    },
+    {
+      "name": "publicBaseUrl",
+      "title": "Public Base URL",
+      "description": "The public URL your bucket is served from, e.g. a custom domain bound to the bucket. No trailing slash.",
+      "type": "textfield",
+      "required": true
+    },
+    {
+      "name": "defaultFormat",
+      "title": "Default Copy Format",
+      "description": "What gets copied to the clipboard after an upload.",
+      "type": "dropdown",
+      "required": true,
+      "default": "markdown",
+      "data": [
+        { "title": "URL", "value": "url" },
+        { "title": "Markdown", "value": "markdown" },
+        { "title": "HTML", "value": "html" },
+        { "title": "Markdown with Filename", "value": "markdown-filename" }
+      ]
+    }
+  ],
+  "scripts": {
+    "build": "ray build",
+    "dev": "ray develop",
+    "lint": "ray lint",
+    "fix-lint": "ray lint --fix"
+  }
+}
