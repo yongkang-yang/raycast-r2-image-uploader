@@ -50,6 +50,12 @@
       "title": "Upload Finder Selection",
       "description": "Upload the images currently selected in Finder",
       "mode": "no-view"
+    },
+    {
+      "name": "r2-menu-bar",
+      "title": "R2 Uploader Menu Bar",
+      "description": "Quick access to uploads and a one-click copy of the last link",
+      "mode": "menu-bar"
     }
   ],
   "preferences": [

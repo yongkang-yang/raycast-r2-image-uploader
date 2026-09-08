@@ -20,6 +20,8 @@ Cloudflare R2 bucket and copies the link back to your clipboard.
   the output format, and optionally name the upload.
 - **Upload Finder Selection** — uploads whatever image files are currently
   selected in Finder.
+- **R2 Uploader Menu Bar** — a menu bar icon with one-click "copy the last
+  upload's link again" plus quick access to the four commands above.
 
 ## Setup
 
