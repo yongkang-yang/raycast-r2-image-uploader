@@ -3,6 +3,9 @@
 Raycast extension that uploads screenshots and images straight to a
 Cloudflare R2 bucket and copies the link back to your clipboard.
 
+> **Not published to the Raycast Store yet.** Install it locally — see
+> [Installation](#installation) below.
+
 ## Commands
 
 - **Capture & Upload** — runs the native macOS interactive screenshot
@@ -32,3 +35,17 @@ S3-compatible API directly — no intermediary server.
 Uploads are stored as `yyyy/mm/<slug-or-name>-<hash>.<ext>`, e.g.
 `2026/09/survey2-team-list-a8f31c.png`. The trailing hash avoids name
 collisions; the slug is optional and only applies to single-file uploads.
+
+## Installation
+
+```
+git clone https://github.com/yongkang-yang/raycast-r2-image-uploader.git
+cd raycast-r2-image-uploader
+npm install
+npm run dev
+```
+
+`npm run dev` (`ray develop`) builds the extension and registers it with
+your local Raycast app in dev mode — the three commands show up
+immediately and hot-reload on further changes. Stop it with Ctrl+C; the
+extension stays installed until Raycast is told otherwise.
