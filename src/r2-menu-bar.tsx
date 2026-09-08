@@ -61,7 +61,11 @@ export default function Command() {
   }
 
   return (
-    <MenuBarExtra icon="cloudflare-icon.png" tooltip="R2 Image Uploader" isLoading={loading}>
+    <MenuBarExtra
+      icon={{ source: { light: "cloudflare-icon-dark.png", dark: "cloudflare-icon-light.png" } }}
+      tooltip="R2 Image Uploader"
+      isLoading={loading}
+    >
       {!configured && (
         <MenuBarExtra.Section>
           <MenuBarExtra.Item
