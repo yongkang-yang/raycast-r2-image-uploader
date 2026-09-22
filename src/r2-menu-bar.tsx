@@ -80,7 +80,7 @@ export default function Command() {
           <MenuBarExtra.Item
             title={lastUpload.filename}
             subtitle={`Copy ${labelFor(format)} Link`}
-            icon={Icon.Clipboard}
+            icon={{ source: lastUpload.url, fallback: Icon.Image }}
             onAction={copyLastLink}
           />
         ) : (
