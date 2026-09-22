@@ -86,6 +86,13 @@ export default function Command() {
         ) : (
           <MenuBarExtra.Item title="No Uploads Yet" />
         )}
+        {lastUpload && (
+          <MenuBarExtra.Item
+            title="Preview Last Upload"
+            icon={Icon.Eye}
+            onAction={() => runCommand("show-last-upload")}
+          />
+        )}
       </MenuBarExtra.Section>
       <MenuBarExtra.Section title="Upload">
         {COMMANDS.map((command) => (

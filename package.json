@@ -52,6 +52,12 @@
       "mode": "no-view"
     },
     {
+      "name": "show-last-upload",
+      "title": "Show Last Upload",
+      "description": "Preview the most recently uploaded image and copy its link",
+      "mode": "view"
+    },
+    {
       "name": "r2-menu-bar",
       "title": "R2 Uploader Menu Bar",
       "description": "Quick access to uploads and a one-click copy of the last link",
